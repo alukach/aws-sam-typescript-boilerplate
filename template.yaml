@@ -1,0 +1,12 @@
+# https://github.com/awslabs/serverless-application-model/blob/develop/versions/2016-10-31.md
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  Hello:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: hello.default
+      Runtime: nodejs8.10
+      CodeUri: ./dist
+      Timeout: 180
