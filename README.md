@@ -43,5 +43,5 @@ REPORT RequestId: 03c81c3a-791a-15de-7225-bcdccc01d273  Duration: 8.71 ms     Bi
 
 It is strongly recommended that you are familiar with the following:
 
-* [AWS Serverless Applicationo Model](https://github.com/awslabs/serverless-application-model)
+* [AWS Serverless Application Model](https://github.com/awslabs/serverless-application-model)
 * [AWS SAM CLI](https://github.com/awslabs/aws-sam-cli)
