@@ -1,15 +1,15 @@
 {
-  "name": "test",
+  "name": "my-sample-project",
   "version": "1.0.0",
   "description": "",
   "typings": "dist/types/index.d.ts",
   "scripts": {
     "start": "webpack -w",
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
-    "test-w": "mocha -w --watch-extensions ts -r ts-node/register src/**/*.spec.ts",
+    "test:watch": "npm test -- --watch-extensions ts --watch",
     "build": "NODE_ENV=${NODE_ENV:-production} webpack",
-    "package": "sam package --template-file template.yaml --s3-bucket ${STAGE:-dev}-sam-test --output-template-file template.packaged.yaml",
-    "deploy": "sam deploy --template-file template.packaged.yaml --stack-name ${STAGE:-dev}-sam-test --capabilities CAPABILITY_IAM",
+    "package": "sam package --template-file template.yaml --s3-bucket $npm_package_name-${STAGE:-dev} --output-template-file template.packaged.yaml",
+    "deploy": "sam deploy --template-file template.packaged.yaml --stack-name $npm_package_name-${STAGE:-dev} --capabilities CAPABILITY_IAM",
     "clean": "rm -rf -v dist/*"
   },
   "repository": {},
