@@ -1,6 +1,6 @@
 # AWS SAM NodeJS + TypeScript Boilerplate
 
-This is a quick example my setup for build AWS AAM applications in TypeScript.
+This is a quick example my setup for build AWS SAM applications in TypeScript.
 
 _Note that I'm not a build-config wizard, this is a configuration that worked for me and that is continually evolving. If you see any mistakes or room for improvement, please create an Issue or Pull Request. **Feedback very welcome!**_
 
