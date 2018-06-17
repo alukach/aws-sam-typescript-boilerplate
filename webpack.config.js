@@ -1,16 +1,18 @@
 const path = require('path');
+const { readFileSync } = require('fs');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const read = require('read-yaml');
+const { yamlParse } = require('yaml-cfn');
 
 const conf = {
   prodMode: process.env.NODE_ENV === 'production',
   templatePath: './template.yaml',
-}
-const entries = Object.values(read.sync(conf.templatePath)['Resources'])
+};
+const cfn = yamlParse(readFileSync(conf.templatePath));
+const entries = Object.values(cfn['Resources'])
   .filter(v => v.Type === 'AWS::Serverless::Function')
   .filter(v => v.Properties.Runtime.startsWith('nodejs'))
   .map(v => v.Properties.Handler.split('.')[0])
-  .reduce((entries, handlerFile) => ({ ...entries, ...{[handlerFile]: `./src/${handlerFile}.ts`}}), {});
+  .reduce((entries, handlerFile) => Object.assign(entries, {[handlerFile]: `./src/${handlerFile}.ts`}), {});
 
 console.log(`Building for ${conf.prodMode ? 'production' : 'development'}...`)
 
@@ -37,7 +39,7 @@ module.exports = {
   },
   plugins: conf.prodMode ? [
     new UglifyJsPlugin({
-      // parallel: true,
+      parallel: true,
       extractComments: true,
       sourceMap: true,
     }),
