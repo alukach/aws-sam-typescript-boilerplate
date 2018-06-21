@@ -11,13 +11,25 @@ const cfn = yamlParse(readFileSync(conf.templatePath));
 const entries = Object.values(cfn['Resources'])
   .filter(v => v.Type === 'AWS::Serverless::Function')
   .filter(v => v.Properties.Runtime.startsWith('nodejs'))
-  .map(v => v.Properties.Handler.split('.')[0])
-  .reduce((entries, handlerFile) => Object.assign(entries, {[handlerFile]: `./src/${handlerFile}.ts`}), {});
+  .map(v => ({
+    handlerFile: v.Properties.Handler.split('.')[0],
+    CodeUriDir: v.Properties.CodeUri.split('/')[v.Properties.CodeUri.split('/').length-1]
+  }))
+  .reduce(
+    (entries, v) =>
+      Object.assign(
+        entries,
+        // Each handler will named based on its Handler filename and
+        // be placed in a directory matching the CodeUri
+        {[`${v.CodeUriDir}/${v.handlerFile}`]: `./src/${v.handlerFile}.ts`}
+      ),
+      {}
+  );
 
 console.log(`Building for ${conf.prodMode ? 'production' : 'development'}...`)
 
 module.exports = {
-  // http://codys.club/blog/2015/07/04/webpack-create-multiple-bundles-with-entry-points/#sec-3
+    // http://codys.club/blog/2015/07/04/webpack-create-multiple-bundles-with-entry-points/#sec-3
   entry: entries,
   target: 'node',
   mode: conf.prodMode ? 'production' : 'development',

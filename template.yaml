@@ -8,5 +8,5 @@ Resources:
     Properties:
       Handler: hello.default
       Runtime: nodejs8.10
-      CodeUri: ./dist
+      CodeUri: ./dist/hello
       Timeout: 180
