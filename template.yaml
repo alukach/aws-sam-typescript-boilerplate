@@ -2,6 +2,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
+Parameters:
+  Stage:
+    Type: String
+  ProjectName:
+    Type: String
+
 Resources:
   Hello:
     Type: AWS::Serverless::Function
@@ -10,3 +16,19 @@ Resources:
       Runtime: nodejs8.10
       CodeUri: ./dist/hello
       Timeout: 180
+
+  ExampleTable:
+    TableName: !Sub ${ProjectName}-exampletable-${Stage}
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+
+Outputs:
+  ExampleTableArn:
+    Description: Example Table ARN
+    Value: !GetAtt ExampleTable.Arn
