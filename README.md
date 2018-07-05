@@ -1,21 +1,21 @@
 # AWS SAM NodeJS + TypeScript Boilerplate
 
-This is a quick example my setup for build AWS SAM applications in TypeScript.
+This is a quick of example my setup for build AWS SAM applications in TypeScript.
 
 _Note that I'm not a build-config wizard, this is a configuration that worked for me and that is continually evolving. If you see any mistakes or room for improvement, please create an Issue or Pull Request. **Feedback very welcome!**_
 
 ## Features
 
 * Multiple entries: Each function handler is built into its own entry file. This aims to keep each function as small and discrete as possible, only packaging the logic needed for that particular function. These entry files are determined by searching the `template.yaml` for Resources with a Type of `AWS::Serverless::Function`.
-* Uglify output with sourcemap during production builds.
-* Tests via Mocha and Chai.
+* Uglify output during production builds.
+* Tests.
 
 ## Commands
 
 * `start`: Watch source code, build on changes
 * `build`: Build source code
 * `test`: Run tests
-* `test-w`: Watch source code, run tests on changes
+* `test -- --watch`: Watch source code, run tests on changes
 * `package`: Run `sam package` with relevant `template-file` and `s3-bucket` values
 * `deploy`: Run `sam deploy` with relevant `template-file` and `stack-name` values
 * `clean`: Wipe-out build directory

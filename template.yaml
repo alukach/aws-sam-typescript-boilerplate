@@ -24,9 +24,6 @@ Resources:
       PrimaryKey:
         Name: id
         Type: String
-      ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
 
 Outputs:
   ExampleTableArn:
