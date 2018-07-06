@@ -54,6 +54,7 @@ module.exports = {
     filename: "[name].js",
     libraryTarget: 'commonjs2',
   },
+  devtool: 'source-map',
   plugins: conf.prodMode ? [
     new UglifyJsPlugin({
       parallel: true,
