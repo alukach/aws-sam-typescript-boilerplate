@@ -8,14 +8,18 @@ Parameters:
   ProjectName:
     Type: String
 
+Globals:
+  Function:
+    Runtime: nodejs8.10
+    Timeout: 180
+    Tracing: Active
+
 Resources:
   Hello:
     Type: AWS::Serverless::Function
     Properties:
       Handler: hello.default
-      Runtime: nodejs8.10
       CodeUri: ./dist/hello
-      Timeout: 180
 
   ExampleTable:
     TableName: !Sub ${ProjectName}-exampletable-${Stage}
