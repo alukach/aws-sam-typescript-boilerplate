@@ -19,7 +19,10 @@ const entries = Object.values(cfn.Resources)
     // Isolate handler src filename
     handlerFile: v.Properties.Handler.split('.')[0],
     // Build handler dst path
-    CodeUriDir: v.Properties.CodeUri.split('/').splice(2).join('/')
+    CodeUriDir: v.Properties.CodeUri.split("/")
+        .filter((x: string) => x !== ".")
+        .slice(1, -1)
+        .join("/")
   }))
   .reduce(
     (entries, v) =>
